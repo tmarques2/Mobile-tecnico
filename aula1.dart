@@ -19,4 +19,8 @@ void main() {
   //a segunda forma é dizer que a varivel precisa ter dados
   // String nome = stdin.readLineSync()!;
   print("Olá champion $nome");
+
+  print("Olá champion, digite sua idade:");
+  int idade = int.parse(stdin.readLineSync()!);
+  print("Sua idade é $idade");
 }
