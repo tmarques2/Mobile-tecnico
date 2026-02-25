@@ -20,15 +20,18 @@ class PaginaPix extends StatelessWidget {
         ),
         centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 117, 19, 137),
-        elevation: 0,
+        elevation: 0, //Remove a sombra da AppBar
       ),
       body: SingleChildScrollView(
+        //Permite rolagem caso a tela fique grande.
         child: Column(
           children: [
-            // 🔹 Card principal
+            // Card principal
             Container(
               margin: const EdgeInsets.all(20),
               padding: const EdgeInsets.all(25),
+              width: 750,
+              height: 150,
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
                   colors: [
@@ -44,19 +47,23 @@ class PaginaPix extends StatelessWidget {
                     color: Colors.deepPurple,
                     blurRadius: 15,
                     offset: Offset(0, 8),
+                    //blurRadius = suavidade
+                    //offset = posição
                   ),
                 ],
               ),
               child: const Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment:
+                    CrossAxisAlignment.center, //Centraliza horizontalmente
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     "Área Pix",
                     style: TextStyle(color: Colors.white70, fontSize: 16),
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(height: 10), //Espaçamento vertical
                   Text(
-                    "Envie e receba dinheiro\nem segundos 💸",
+                    "Envie e receba dinheiro nem segundos",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 20,
@@ -69,9 +76,10 @@ class PaginaPix extends StatelessWidget {
 
             const SizedBox(height: 20),
 
-            // 🔹 Botões principais
+            // Botões principais
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment
+                  .spaceEvenly, //Distribui os botões igualmente
               children: [
                 _botaoPix(Icons.qr_code, "Pagar"),
                 _botaoPix(Icons.send, "Enviar"),
@@ -81,7 +89,7 @@ class PaginaPix extends StatelessWidget {
 
             const SizedBox(height: 30),
 
-            // 🔹 Minhas chaves
+            // Minhas chaves
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
@@ -93,6 +101,7 @@ class PaginaPix extends StatelessWidget {
                   ),
                   SizedBox(height: 10),
                   ListTile(
+                    // componente pronto que ja vem com o leading (icone) e o titulo
                     leading: Icon(Icons.email, color: Colors.deepPurple),
                     title: Text("thainara@email.com"),
                   ),
@@ -106,7 +115,7 @@ class PaginaPix extends StatelessWidget {
 
             const SizedBox(height: 20),
 
-            // 🔹 Últimos Pix
+            // Últimos Pix
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
@@ -133,7 +142,7 @@ class PaginaPix extends StatelessWidget {
 
             const SizedBox(height: 30),
 
-            // 🔹 Botão voltar
+            // Botão voltar
             TextButton(
               onPressed: () {
                 Navigator.push(
@@ -152,7 +161,7 @@ class PaginaPix extends StatelessWidget {
     );
   }
 
-  // 🔹 Botão redondo estilo banco
+  // Botão redondo estilo banco
   Widget _botaoPix(IconData icon, String texto) {
     return Column(
       children: [
