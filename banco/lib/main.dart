@@ -12,7 +12,9 @@ class Centralizadora extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: TelaInicial());
+    return MaterialApp(theme: ThemeData(
+      fontFamily: "Montserrat"
+    ), debugShowCheckedModeBanner: false, home: TelaInicial());
   }
 }
 
