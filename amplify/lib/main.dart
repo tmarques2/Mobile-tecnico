@@ -1,3 +1,4 @@
+import 'package:amplify/login.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,7 +18,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
@@ -34,7 +34,7 @@ class SplashScreen extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const SplashScreen()),
+                  MaterialPageRoute(builder: (context) => const PaginaLogin()),
                 );
               },
               child: Column(
