@@ -26,7 +26,7 @@ class PaginaCadastro extends StatelessWidget {
 
             SizedBox(height: 80),
             SizedBox(
-              width: 300,
+              width: MediaQuery.of(context).size.width * 0.6,
               child: TextField(
                 style: TextStyle(color: Colors.white),
                 decoration: InputDecoration(
@@ -54,7 +54,7 @@ class PaginaCadastro extends StatelessWidget {
 
             SizedBox(height: 20),
             SizedBox(
-              width: 300,
+              width: MediaQuery.of(context).size.width * 0.6,
               child: TextField(
                 style: TextStyle(color: Colors.white),
                 decoration: InputDecoration(
@@ -82,7 +82,7 @@ class PaginaCadastro extends StatelessWidget {
 
             SizedBox(height: 20),
             SizedBox(
-              width: 300,
+              width: MediaQuery.of(context).size.width * 0.6,
               child: TextField(
                 obscureText: true,
                 style: TextStyle(color: Colors.white),
