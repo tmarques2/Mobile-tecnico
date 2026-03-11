@@ -1,3 +1,4 @@
+import 'package:amplify/cadastro.dart';
 import 'package:amplify/main.dart';
 import 'package:flutter/material.dart';
 
@@ -117,7 +118,7 @@ class PaginaLogin extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => SplashScreen()),
+                      MaterialPageRoute(builder: (context) => PaginaCadastro()),
                     );
                   },
                   child: Text(
@@ -125,7 +126,7 @@ class PaginaLogin extends StatelessWidget {
                     style: TextStyle(
                       color: Color.fromARGB(255, 255, 68, 68),
                       fontWeight: FontWeight.w600,
-                      fontSize: 11,
+                      fontSize: 12,
                     ),
                   ),
                 ),
