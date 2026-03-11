@@ -1,4 +1,5 @@
 import 'package:amplify/login.dart';
+import 'package:amplify/onboarding.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -34,7 +35,9 @@ class SplashScreen extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const PaginaLogin()),
+                  MaterialPageRoute(
+                    builder: (context) => const PaginaOnboarding(),
+                  ),
                 );
               },
               child: Column(

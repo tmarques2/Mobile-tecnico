@@ -1,3 +1,4 @@
+import 'package:amplify/home.dart';
 import 'package:amplify/login.dart';
 import 'package:amplify/main.dart';
 import 'package:flutter/material.dart';
@@ -120,7 +121,7 @@ class PaginaCadastro extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const SplashScreen()),
+                  MaterialPageRoute(builder: (context) => const PaginaHome()),
                 );
               },
               child: const Text(
