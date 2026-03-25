@@ -64,7 +64,7 @@ class SobreMim extends StatelessWidget {
                   Text(
                     "Estudante atualmente focada em Análise e Desenvolvimento de Sistemas e na criação de experiências digitais memoráveis.",
                     style: TextStyle(
-                      fontSize: screenWidth * 0.03, // Aprox. 16px
+                      fontSize: screenWidth * 0.038, // Aprox. 16px
                       color: Colors.grey[700],
                       height: 1.6,
                     ),
@@ -131,7 +131,7 @@ class SobreMim extends StatelessWidget {
                         Text(
                           "Quer ver o que eu já construí?",
                           style: TextStyle(
-                            fontSize: screenWidth * 0.03,
+                            fontSize: screenWidth * 0.035,
                             fontWeight: FontWeight.w500,
                             color: Colors.black54,
                           ),

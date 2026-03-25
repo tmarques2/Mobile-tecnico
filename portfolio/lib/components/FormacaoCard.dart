@@ -54,7 +54,7 @@ class FormacaoCard extends StatelessWidget {
                   // Fonte responsiva: evita que o título ocupe muitas linhas em telas pequenas
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: screenWidth * 0.032,
+                    fontSize: screenWidth * 0.04,
                     color: const Color(0xFF531B24),
                   ),
                 ),
@@ -63,7 +63,7 @@ class FormacaoCard extends StatelessWidget {
                   "$instituicao • $periodo",
                   style: TextStyle(
                     color: Colors.black54,
-                    fontSize: screenWidth * 0.025,
+                    fontSize: screenWidth * 0.035,
                   ),
                 ),
               ],
