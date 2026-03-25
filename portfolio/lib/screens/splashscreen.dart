@@ -6,6 +6,10 @@ class Splashscreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Pega as dimensões da tela atual
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: Stack(
         children: [
@@ -24,27 +28,33 @@ class Splashscreen extends StatelessWidget {
 
           // TITULO PORTFÓLIO
           Positioned(
-            top: 80,
+            top: screenHeight * 0.08,
             left: 0,
             right: 0,
             child: Text(
               "Portfólio",
               textAlign: TextAlign.center,
-              style: const TextStyle(
+              style: TextStyle(
                 color: Colors.white,
-                fontSize: 90,
+                // Fonte baseada na largura da tela para não quebrar
+                fontSize: screenWidth * 0.21,
                 fontWeight: FontWeight.w900,
               ),
             ),
           ),
 
-          // IMAGEM
+          // IMAGEM - Responsiva (Posicionada entre o título e a onda)
           Positioned(
-            top: 150,
+            top: screenHeight * 0.15,
             left: 0,
             right: 0,
             child: Center(
-              child: Image.asset("images/thainara.png", height: 600),
+              child: Image.asset(
+                "images/thainara.png",
+                // A imagem ocupará sempre 55% da altura da tela
+                height: screenHeight * 0.65,
+                fit: BoxFit.contain,
+              ),
             ),
           ),
 
@@ -54,45 +64,49 @@ class Splashscreen extends StatelessWidget {
             child: ClipPath(
               clipper: OndaClipper(),
               child: Container(
-                height: 340,
+                // A caixa branca ocupará sempre 35% da parte inferior
+                height: screenHeight * 0.35,
                 width: double.infinity,
                 color: const Color(0xFFEDEDED),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
+                    const SizedBox(height: 40),
+                    Text(
                       "Conheça um pouco sobre",
-                      style: TextStyle(fontSize: 18, color: Colors.black54),
-                    ),
-
-                    const SizedBox(height: 20),
-
-                    const Text(
-                      "Thainara Marques",
                       style: TextStyle(
-                        fontSize: 40,
-                        fontWeight: FontWeight.w900,
-                        color: Color(0xFF531B24),
+                        fontSize: screenWidth * 0.045,
+                        color: Colors.black54,
                       ),
                     ),
-
-                    const SizedBox(height: 35),
-
+                    const SizedBox(height: 10),
+                    Text(
+                      "Thainara Marques",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: screenWidth * 0.09,
+                        fontWeight: FontWeight.w900,
+                        color: const Color(0xFF531B24),
+                      ),
+                    ),
+                    const SizedBox(height: 25),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF531B24),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 40,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: screenWidth * 0.1,
                           vertical: 12,
                         ),
                       ),
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => SobreMim()),
+                          MaterialPageRoute(
+                            builder: (context) => const SobreMim(),
+                          ),
                         );
                       },
                       child: const Text(
@@ -111,21 +125,17 @@ class Splashscreen extends StatelessWidget {
   }
 }
 
+// O Clipper permanece o mesmo, ele já se adapta ao 'Size' do container pai
 class OndaClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     Path path = Path();
-
     path.lineTo(0, 80);
-
     path.quadraticBezierTo(size.width * 0.25, 0, size.width * 0.5, 40);
-
     path.quadraticBezierTo(size.width * 0.75, 80, size.width, 40);
-
     path.lineTo(size.width, size.height);
     path.lineTo(0, size.height);
     path.close();
-
     return path;
   }
 

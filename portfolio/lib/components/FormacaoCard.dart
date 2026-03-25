@@ -14,13 +14,17 @@ class FormacaoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Captura a largura da tela para ajustar fontes e paddings
+    final double screenWidth = MediaQuery.of(context).size.width;
+
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.all(
+        screenWidth * 0.03,
+      ), // Padding responsivo (4% da largura)
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        // Sombra suave para tirar o aspecto de "folha de papel"
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.04),
@@ -31,33 +35,35 @@ class FormacaoCard extends StatelessWidget {
       ),
       child: Row(
         children: [
-          // Detalhe visual lateral
+          // Detalhe visual lateral - Ajustado para ser sutil em qualquer tela
           Container(
             width: 4,
-            height: 40,
+            height: screenWidth * 0.1, // Altura proporcional à largura da tela
             decoration: BoxDecoration(
               color: const Color(0xFF531B24),
               borderRadius: BorderRadius.circular(10),
             ),
           ),
-          const SizedBox(width: 15),
+          SizedBox(width: screenWidth * 0.03), // Espaçamento interno responsivo
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   curso,
-                  style: const TextStyle(
+                  // Fonte responsiva: evita que o título ocupe muitas linhas em telas pequenas
+                  style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    color: Color(0xFF531B24),
+                    fontSize: screenWidth * 0.032,
+                    color: const Color(0xFF531B24),
                   ),
                 ),
+                const SizedBox(height: 4),
                 Text(
                   "$instituicao • $periodo",
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: Colors.black54,
-                    fontSize: 13,
+                    fontSize: screenWidth * 0.025,
                   ),
                 ),
               ],

@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SocialSection extends StatelessWidget {
   const SocialSection({super.key});
+
+  Future<void> _launchUrl(String url) async {
+    final Uri uri = Uri.parse(url);
+    if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+      throw Exception("Não foi possivel abrir $url");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -10,32 +18,35 @@ class SocialSection extends StatelessWidget {
       children: [
         const Text(
           "Redes Sociais & Contato",
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 20),
+
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             _buildSocialImageButton(
-              imagePath:
-                  "images/github.png", // Certifique-se de ter essa imagem
+              imagePath: "images/github.png",
               label: "GitHub",
-              onTap: () => print("Link GitHub"),
+              onTap: () => _launchUrl("https://github.com/tmarques2"),
             ),
             _buildSocialImageButton(
               imagePath: "images/linkedin.png",
               label: "LinkedIn",
-              onTap: () => print("Link LinkedIn"),
+              onTap: () => _launchUrl(
+                "https://www.linkedin.com/in/thainara-marques-78900326b/",
+              ),
             ),
             _buildSocialImageButton(
               imagePath: "images/instagram.png",
               label: "Instagram",
-              onTap: () => print("Link Instagram"),
+              onTap: () =>
+                  _launchUrl("https://www.instagram.com/t.marquezzz0/"),
             ),
             _buildSocialImageButton(
               imagePath: "images/email.png",
               label: "Email",
-              onTap: () => print("Link Email"),
+              onTap: () => _launchUrl("mailto:thainaramarques258@gmail.com"),
             ),
           ],
         ),

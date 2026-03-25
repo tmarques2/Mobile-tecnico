@@ -2,95 +2,88 @@ import 'package:flutter/material.dart';
 import 'package:portfolio/components/FormacaoCard.dart';
 import 'package:portfolio/components/SkillBadge.dart';
 import 'package:portfolio/components/SocialSection.dart';
+import 'package:portfolio/components/HeaderOnda.dart';
+import 'package:portfolio/screens/projetos.dart';
 
 class SobreMim extends StatelessWidget {
   const SobreMim({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // Captura as dimensões da tela para responsividade
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
+
+    final List<String> skills = [
+      "images/vue.png",
+      "images/python.png",
+      "images/react.png",
+      "images/django.png",
+      "images/java.png",
+      "images/fastapi.png",
+      "images/docker.png",
+      "images/arduino.png",
+      "images/mysql.png",
+      "images/flutter.png",
+    ];
+
+    // Ajusta a fração do carrossel baseada na largura da tela
+    // Se a tela for muito larga (ex: tablet), mostra mais itens
+    double viewportFraction = screenWidth > 600 ? 0.2 : 0.3;
+
+    final PageController pageController = PageController(
+      viewportFraction: viewportFraction,
+      initialPage: 1000,
+    );
+
     return Scaffold(
-      backgroundColor: const Color(
-        0xFFF5F5F5,
-      ), // Cinza bem claro para contraste
+      backgroundColor: const Color(0xFFF5F5F5),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // HEADER COM ONDA
-            Stack(
-              children: [
-                ClipPath(
-                  clipper: OndaTopoClipper(),
-                  child: Container(
-                    height: 180,
-                    width: double.infinity,
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [Color(0xFF531B24), Color(0xFF6A2931)],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  top: 50,
-                  left: 20,
-                  child: IconButton(
-                    icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                ),
-                const Positioned(
-                  top: 60,
-                  left: 0,
-                  right: 0,
-                  child: Text(
-                    "Sobre mim",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 32,
-                      fontWeight: FontWeight.w900,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            const HeaderOnda(titulo: "Sobre mim", mostrarBotaoVoltar: true),
 
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25),
+              // Padding responsivo (6% da largura da tela)
+              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.06),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // BIO INTERATIVA
-                  const Text(
+                  // Título com tamanho de fonte responsivo
+                  Text(
                     "Olá, eu sou a Thainara 👋",
                     style: TextStyle(
-                      fontSize: 24,
+                      fontSize:
+                          screenWidth *
+                          0.06, // Aprox. 24-26px em celulares comuns
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF531B24),
+                      color: const Color(0xFF531B24),
                     ),
                   ),
                   const SizedBox(height: 12),
                   Text(
-                    "Desenvolvedora atualmente focada em Análise e Desenvolvimento de Sistemas e na criação de experiências digitais memoráveis.",
+                    "Estudante atualmente focada em Análise e Desenvolvimento de Sistemas e na criação de experiências digitais memoráveis.",
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: screenWidth * 0.03, // Aprox. 16px
                       color: Colors.grey[700],
                       height: 1.6,
                     ),
                   ),
 
-                  const SizedBox(height: 35),
+                  SizedBox(height: screenHeight * 0.04),
 
-                  // SEÇÃO TRAJETÓRIA
                   const Text(
                     "Trajetória",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 15),
                   const FormacaoCard(
                     curso: "Análise e Desenv. de Sistemas",
+                    instituicao: "SENAI Roberto Mange",
+                    periodo: "2025 - 2026",
+                  ),
+                  const FormacaoCard(
+                    curso: "Técnico em Desenv. de Sistemas",
                     instituicao: "SENAI Roberto Mange",
                     periodo: "2025 - 2026",
                   ),
@@ -100,43 +93,45 @@ class SobreMim extends StatelessWidget {
                     periodo: "2023 - 2024",
                   ),
 
-                  const SizedBox(height: 20),
+                  SizedBox(height: screenHeight * 0.04),
 
-                  // SEÇÃO TECH STACK
                   const Text(
                     "Tech Stack",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 20),
-                  Center(
-                    child: Wrap(
-                      spacing: 10,
-                      runSpacing: 20,
-                      children: const [
-                        SkillBadge(imagePath: "images/vue.png"),
-                        SkillBadge(imagePath: "images/python.png"),
-                        SkillBadge(imagePath: "images/react.png"),
-                        SkillBadge(imagePath: "images/django.png"),
-                        SkillBadge(imagePath: "images/java.png"),
-                      ],
+
+                  // Carrossel Responsivo
+                  SizedBox(
+                    height:
+                        screenHeight * 0.12, // Altura baseada na altura da tela
+                    child: PageView.builder(
+                      controller: pageController,
+                      physics: const BouncingScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        final imagePath = skills[index % skills.length];
+                        return Center(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 5),
+                            child: SkillBadge(imagePath: imagePath),
+                          ),
+                        );
+                      },
                     ),
                   ),
 
-                  const SizedBox(height: 35),
-
-                  // COMPONENTE DE REDES SOCIAIS (Requisito SA1)
+                  SizedBox(height: screenHeight * 0.04),
                   const SocialSection(),
+                  SizedBox(height: screenHeight * 0.05),
 
-                  const SizedBox(height: 40),
-
-                  // SEÇÃO DE PROJETOS (Botão para cumprir o último requisito da lista)
+                  // Seção de Saída/Botão
                   Center(
                     child: Column(
                       children: [
-                        const Text(
+                        Text(
                           "Quer ver o que eu já construí?",
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: screenWidth * 0.03,
                             fontWeight: FontWeight.w500,
                             color: Colors.black54,
                           ),
@@ -144,8 +139,12 @@ class SobreMim extends StatelessWidget {
                         const SizedBox(height: 15),
                         ElevatedButton.icon(
                           onPressed: () {
-                            // Aqui você deve colocar a navegação para sua tela de projetos
-                            // Navigator.push(context, MaterialPageRoute(builder: (context) => const MeusProjetos()));
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const Projetos(),
+                              ),
+                            );
                           },
                           icon: const Icon(
                             Icons.rocket_launch,
@@ -157,10 +156,10 @@ class SobreMim extends StatelessWidget {
                           ),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFF531B24),
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 30,
-                              vertical: 15,
-                            ),
+                            minimumSize: Size(
+                              screenWidth * 0.7,
+                              50,
+                            ), // Botão ocupa 70% da largura
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30),
                             ),
@@ -179,39 +178,4 @@ class SobreMim extends StatelessWidget {
       ),
     );
   }
-}
-
-// CLIPPER DA ONDA SUPERIOR
-class OndaTopoClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    Path path = Path();
-    path.lineTo(0, size.height - 60);
-
-    var firstControlPoint = Offset(size.width * 0.25, size.height);
-    var firstEndPoint = Offset(size.width * 0.5, size.height - 35);
-
-    var secondControlPoint = Offset(size.width * 0.75, size.height - 75);
-    var secondEndPoint = Offset(size.width, size.height - 40);
-
-    path.quadraticBezierTo(
-      firstControlPoint.dx,
-      firstControlPoint.dy,
-      firstEndPoint.dx,
-      firstEndPoint.dy,
-    );
-    path.quadraticBezierTo(
-      secondControlPoint.dx,
-      secondControlPoint.dy,
-      secondEndPoint.dx,
-      secondEndPoint.dy,
-    );
-
-    path.lineTo(size.width, 0);
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }
