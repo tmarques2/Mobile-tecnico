@@ -36,14 +36,13 @@ class Splashscreen extends StatelessWidget {
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,
-                // Fonte baseada na largura da tela para não quebrar
                 fontSize: screenWidth * 0.21,
                 fontWeight: FontWeight.w900,
               ),
             ),
           ),
 
-          // IMAGEM - Responsiva (Posicionada entre o título e a onda)
+          // IMAGEM THAI
           Positioned(
             top: screenHeight * 0.15,
             left: 0,
@@ -51,7 +50,6 @@ class Splashscreen extends StatelessWidget {
             child: Center(
               child: Image.asset(
                 "images/thainara.png",
-                // A imagem ocupará sempre 55% da altura da tela
                 height: screenHeight * 0.65,
                 fit: BoxFit.contain,
               ),
@@ -64,7 +62,6 @@ class Splashscreen extends StatelessWidget {
             child: ClipPath(
               clipper: OndaClipper(),
               child: Container(
-                // A caixa branca ocupará sempre 35% da parte inferior
                 height: screenHeight * 0.35,
                 width: double.infinity,
                 color: const Color(0xFFEDEDED),
@@ -125,7 +122,6 @@ class Splashscreen extends StatelessWidget {
   }
 }
 
-// O Clipper permanece o mesmo, ele já se adapta ao 'Size' do container pai
 class OndaClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {

@@ -78,6 +78,9 @@ flutter:
     - images/flink_logo.png
     - images/breeze_logo.png
     - images/autron_logo.png
+    - images/flink-grupo.png
+    - images/breeze-grupo.png
+    - images/autron-grupo.png
 
   fonts:
     - family: Montserrat

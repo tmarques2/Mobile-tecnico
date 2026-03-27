@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class SkillBadge extends StatelessWidget {
+class Techstack extends StatelessWidget {
   final String imagePath;
 
-  const SkillBadge({super.key, required this.imagePath});
+  const Techstack({super.key, required this.imagePath});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class SkillBadge extends StatelessWidget {
       child: Image.asset(
         imagePath,
         fit: BoxFit.contain,
-        // Caso a imagem falhe (caminho errado), mostra um ícone de erro
+        // Caso a imagem falhe
         errorBuilder: (context, error, stackTrace) =>
             const Icon(Icons.code, color: Colors.grey),
       ),

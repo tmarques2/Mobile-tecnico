@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/components/FormacaoCard.dart';
-import 'package:portfolio/components/SkillBadge.dart';
+import 'package:portfolio/components/TechStack.dart';
 import 'package:portfolio/components/SocialSection.dart';
 import 'package:portfolio/components/HeaderOnda.dart';
 import 'package:portfolio/screens/projetos.dart';
@@ -14,6 +14,7 @@ class SobreMim extends StatelessWidget {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
 
+    //LISTA DAS FERRAMENTAS, SE TIVER MAIS SÓ ADICIONA AQUI
     final List<String> skills = [
       "images/vue.png",
       "images/python.png",
@@ -27,8 +28,6 @@ class SobreMim extends StatelessWidget {
       "images/flutter.png",
     ];
 
-    // Ajusta a fração do carrossel baseada na largura da tela
-    // Se a tela for muito larga (ex: tablet), mostra mais itens
     double viewportFraction = screenWidth > 600 ? 0.2 : 0.3;
 
     final PageController pageController = PageController(
@@ -44,27 +43,23 @@ class SobreMim extends StatelessWidget {
             const HeaderOnda(titulo: "Sobre mim", mostrarBotaoVoltar: true),
 
             Padding(
-              // Padding responsivo (6% da largura da tela)
               padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.06),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Título com tamanho de fonte responsivo
                   Text(
                     "Olá, eu sou a Thainara 👋",
                     style: TextStyle(
-                      fontSize:
-                          screenWidth *
-                          0.06, // Aprox. 24-26px em celulares comuns
+                      fontSize: screenWidth * 0.06,
                       fontWeight: FontWeight.bold,
                       color: const Color(0xFF531B24),
                     ),
                   ),
                   const SizedBox(height: 12),
                   Text(
-                    "Estudante atualmente focada em Análise e Desenvolvimento de Sistemas e na criação de experiências digitais memoráveis.",
+                    "Atuando como Jovem Aprendiz em Soluções Digitais na Bosch, desenvolvendo competências em Software e práticas de DevOps.",
                     style: TextStyle(
-                      fontSize: screenWidth * 0.038, // Aprox. 16px
+                      fontSize: screenWidth * 0.038,
                       color: Colors.grey[700],
                       height: 1.6,
                     ),
@@ -101,10 +96,8 @@ class SobreMim extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
 
-                  // Carrossel Responsivo
                   SizedBox(
-                    height:
-                        screenHeight * 0.12, // Altura baseada na altura da tela
+                    height: screenHeight * 0.12,
                     child: PageView.builder(
                       controller: pageController,
                       physics: const BouncingScrollPhysics(),
@@ -113,7 +106,7 @@ class SobreMim extends StatelessWidget {
                         return Center(
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 5),
-                            child: SkillBadge(imagePath: imagePath),
+                            child: Techstack(imagePath: imagePath),
                           ),
                         );
                       },
@@ -156,10 +149,7 @@ class SobreMim extends StatelessWidget {
                           ),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFF531B24),
-                            minimumSize: Size(
-                              screenWidth * 0.7,
-                              50,
-                            ), // Botão ocupa 70% da largura
+                            minimumSize: Size(screenWidth * 0.7, 50),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30),
                             ),

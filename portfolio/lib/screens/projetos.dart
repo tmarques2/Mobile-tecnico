@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/components/HeaderOnda.dart';
-import 'package:portfolio/components/ProjetoCard.dart'; // Importe aqui
+import 'package:portfolio/components/ProjetoCard.dart';
 
 class Projetos extends StatelessWidget {
   const Projetos({super.key});
@@ -21,24 +21,26 @@ class Projetos extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.06),
               child: Column(
                 children: [
-                  // Agora você usa o componente como uma tag HTML/Widget comum
                   const ProjetoCard(
                     imagePath: "images/flink_logo.png",
                     titulo: "FLINK",
                     descricao:
                         "Centralização de informação, integração entre plataformas como SAP, excel e Power BI.",
+                    grupo: "images/flink-grupo.png",
                   ),
                   const ProjetoCard(
                     imagePath: "images/breeze_logo.png",
                     titulo: "Breeze",
                     descricao:
                         "Plataforma de monitoramento climático em tempo real e controle de dispositivos prediais.",
+                    grupo: "images/breeze-grupo.png",
                   ),
                   const ProjetoCard(
                     imagePath: "images/autron_logo.png",
                     titulo: "AUTRON",
                     descricao:
                         "Robô Humanoide para um espaço automotivo feito com inteligência artificial e que conversa com as pessoas.",
+                    //grupo: "images/autron-grupo.png",
                   ),
                   SizedBox(height: screenHeight * 0.05),
                 ],

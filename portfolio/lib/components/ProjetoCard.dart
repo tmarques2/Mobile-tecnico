@@ -4,12 +4,14 @@ class ProjetoCard extends StatelessWidget {
   final String imagePath;
   final String titulo;
   final String descricao;
+  final String? grupo;
 
   const ProjetoCard({
     super.key,
     required this.imagePath,
     required this.titulo,
     required this.descricao,
+    this.grupo,
   });
 
   @override
@@ -33,6 +35,7 @@ class ProjetoCard extends StatelessWidget {
           collapsedIconColor: Colors.grey,
           leading: SizedBox(
             width: screenWidth * 0.2,
+            // LOGO
             child: Image.asset(
               imagePath,
               fit: BoxFit.contain,
@@ -58,6 +61,8 @@ class ProjetoCard extends StatelessWidget {
                 children: [
                   const Divider(thickness: 1),
                   const SizedBox(height: 10),
+
+                  //DESCRIÇÃO
                   Text(
                     descricao,
                     style: TextStyle(
@@ -66,7 +71,23 @@ class ProjetoCard extends StatelessWidget {
                       fontSize: screenWidth * 0.038,
                     ),
                   ),
+
                   const SizedBox(height: 10),
+
+                  //FOTO DO GRUPO (OPCIONAL
+                  if (grupo != null) ...[
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.asset(
+                        grupo!,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) =>
+                            const SizedBox.shrink(),
+                      ),
+                    ),
+                    const SizedBox(height: 15),
+                  ],
                 ],
               ),
             ),
