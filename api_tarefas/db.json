@@ -1,0 +1,28 @@
+{
+    "tasks": [
+        {
+            "id": 1,
+            "title": "Acordar e escovar os dentes"
+        },
+        {
+            "id": 2,
+            "title": "Tomar banho"
+        },
+        {
+            "id": 3,
+            "title": "Colocar uniforme"
+        },
+        {
+            "id": 4,
+            "'title": "Arrumar o cabelo"
+        },
+        {
+            "id": 5,
+            "title": "Passar maquiagem"
+        },
+        {
+            "id": 6,
+            "title": "Pegar fretado"
+        }
+    ]
+}
