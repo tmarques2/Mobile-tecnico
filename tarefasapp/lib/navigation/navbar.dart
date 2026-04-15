@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tarefasapp/screens/teladelete.dart';
 import 'package:tarefasapp/screens/telaget.dart';
+import 'package:tarefasapp/screens/telapost.dart';
 
 class Navbar extends StatefulWidget {
   const Navbar({super.key});
@@ -11,7 +12,7 @@ class Navbar extends StatefulWidget {
 
 class _NavbarState extends State<Navbar> {
   int indexAtual = 0; //ve qual tela ta selecionada
-  List pages = [TelaGet(), TelaDelete()];
+  List pages = [TelaGet(), TelaDelete(), TelaPost()];
 
   void mudarIndex(int novoIndex) {
     setState(() {
@@ -27,6 +28,7 @@ class _NavbarState extends State<Navbar> {
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.get_app), label: "Get"),
           BottomNavigationBarItem(icon: Icon(Icons.delete), label: "Delete"),
+          BottomNavigationBarItem(icon: Icon(Icons.post_add), label: "Post"),
         ],
         currentIndex: indexAtual,
         onTap: mudarIndex,

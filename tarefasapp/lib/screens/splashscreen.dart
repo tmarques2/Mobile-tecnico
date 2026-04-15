@@ -12,10 +12,11 @@ class _SplashscreenState extends State<Splashscreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 2), () {
-      Navigator.push(
+    Future.delayed(const Duration(seconds: 2), () {
+      // pushReplacement evita que o usuário volte para a SplashScreen
+      Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => Navbar()),
+        MaterialPageRoute(builder: (context) => const Navbar()),
       );
     });
   }
@@ -26,7 +27,7 @@ class _SplashscreenState extends State<Splashscreen> {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
               Color.fromARGB(255, 122, 20, 54),
@@ -36,29 +37,48 @@ class _SplashscreenState extends State<Splashscreen> {
             end: Alignment.bottomRight,
           ),
         ),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.network(
-                "https://cdn-icons-png.flaticon.com/512/65/65717.png",
-                width: 200,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Spacer(), // Empurra o conteúdo para o meio
+            // Ícone nativo (carrega na hora e fica branco, contrastando com o fundo)
+            const Icon(Icons.task_alt_rounded, size: 110, color: Colors.white),
+            const SizedBox(height: 24),
+
+            // Título principal
+            const Text(
+              "Thasks",
+              style: TextStyle(
+                fontSize: 42,
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 2.0, // Dá um visual mais elegante
               ),
-              Text(
-                "Thasks",
-                style: TextStyle(
-                  fontSize: 30,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w600,
-                ),
+            ),
+
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 50, vertical: 16),
+              child: Divider(color: Colors.white54),
+            ),
+
+            // Subtítulo
+            const Text(
+              "Seu app de gerenciamento de tarefas",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white70,
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
               ),
-              Divider(indent: 50, endIndent: 50, color: Colors.white54),
-              Text(
-                "Bem Vindo ao app de gerenciamento de tarefas",
-                style: TextStyle(color: Colors.white),
-              ),
-            ],
-          ),
+            ),
+
+            const Spacer(), // Empurra o loading para o fundo
+            // Indicador de carregamento
+            const CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+            ),
+            const SizedBox(height: 48), // Margem inferior
+          ],
         ),
       ),
     );

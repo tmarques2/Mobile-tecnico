@@ -15,7 +15,7 @@ class _TelaGetState extends State<TelaGet> {
 
   void fazerGet() async {
     final respostaServidor = await http.get(
-      Uri.parse("http://10.109.72.26:3000/tasks"),
+      Uri.parse("http://10.109.72.27:3000/tasks"),
     );
 
     if (respostaServidor.statusCode == 200) {
@@ -32,7 +32,10 @@ class _TelaGetState extends State<TelaGet> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text("Tela Get", style: TextStyle(color: Colors.white)),
+        title: Text(
+          "Tela Get",
+          style: TextStyle(color: Colors.white, fontFamily: 'Montserrat'),
+        ),
         backgroundColor: Colors.pink,
       ),
       body: Center(
