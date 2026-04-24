@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -11,35 +10,88 @@ class TelaPost extends StatefulWidget {
 }
 
 class _TelaPostState extends State<TelaPost> {
-  // variavel que observa o que o usuario digita
-  TextEditingController valorDigitado = TextEditingController();
+  TextEditingController controller = TextEditingController();
+  bool carregando = false;
 
   void fazerPost() async {
-    final respostaServidor = await http.post(
-      Uri.parse("http://10.109.72.27:3000/tasks"),
-      headers: {
-        "Content-Type": "application/json",
-      }, //estou enviando um json para o post
-      body: jsonEncode({"title": valorDigitado.text}),
+    if (controller.text.isEmpty) return;
+
+    setState(() => carregando = true);
+
+    final response = await http.post(
+      Uri.parse("https://json-server-1-qrw7.onrender.com/tasks"),
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode({"title": controller.text}),
     );
-    if (respostaServidor.statusCode == 201 ||
-        respostaServidor.statusCode == 200) {
+
+    setState(() => carregando = false);
+
+    if (response.statusCode == 201) {
+      controller.clear();
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(SnackBar(content: Text("Dado enviado com sucesso")));
+      ).showSnackBar(const SnackBar(content: Text("Adicionado com sucesso")));
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Tela Post")),
+      backgroundColor: Colors.white,
+
+      appBar: AppBar(
+        title: const Text("POST", style: TextStyle(color: Colors.white)),
+        centerTitle: true,
+        backgroundColor: const Color.fromARGB(255, 122, 20, 54),
+        automaticallyImplyLeading: false,
+      ),
+
       body: Center(
-        child: Column(
-          children: [
-            TextField(controller: valorDigitado),
-            TextButton(onPressed: fazerPost, child: Text("Adicionar dado")),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: const Color.fromARGB(255, 122, 20, 54),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  controller: controller,
+                  style: const TextStyle(color: Colors.white),
+                  decoration: const InputDecoration(
+                    hintText: "Digite algo",
+                    hintStyle: TextStyle(color: Colors.white),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                SizedBox(
+                  width: double.infinity, // ocupa toda a largura
+                  height: 55, // altura maior
+                  child: ElevatedButton(
+                    onPressed: carregando ? null : fazerPost,
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    child: carregando
+                        ? const CircularProgressIndicator(color: Colors.white)
+                        : const Text(
+                            "Enviar",
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Color.fromARGB(255, 122, 20, 54),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
