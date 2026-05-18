@@ -13,11 +13,9 @@ class BaseTela extends StatefulWidget {
 class _BaseTelaState extends State<BaseTela> {
   int _abaSelecionada = 0;
 
-  // Lista de telas que serão alternadas pela Navbar
-  // Localize a lista de telas na sua BaseTela e altere a segunda linha para chamar sem parâmetros fixa:
   final List<Widget> _telas = [
     const HomeTela(),
-    const CatalogoTela(), // Removido o parâmetro fixo para inicializar em "Todos"
+    const CatalogoTela(),
     const GerenciarTela(),
   ];
 
@@ -33,7 +31,7 @@ class _BaseTelaState extends State<BaseTela> {
           });
         },
         backgroundColor: const Color(0xFF1E1E1E),
-        selectedItemColor: const Color(0xFFE5A93C), // Amarelo Krunner
+        selectedItemColor: const Color(0xFFE5A93C),
         unselectedItemColor: Colors.grey,
         type: BottomNavigationBarType.fixed,
         items: const [

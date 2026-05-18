@@ -14,6 +14,8 @@ class _CarrinhoTelaState extends State<CarrinhoTela> {
 
   @override
   Widget build(BuildContext context) {
+    final itensUnicos = _carrinho.itens.toSet().toList();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -22,7 +24,6 @@ class _CarrinhoTelaState extends State<CarrinhoTela> {
         ),
         backgroundColor: const Color(0xFF121212),
       ),
-      // Se a lista estiver vazia, mostra o texto. Se não, desenha a coluna.
       body: _carrinho.itens.isEmpty
           ? const Center(
               child: Text(
@@ -34,9 +35,14 @@ class _CarrinhoTelaState extends State<CarrinhoTela> {
               children: [
                 Expanded(
                   child: ListView.builder(
-                    itemCount: _carrinho.itens.length,
+                    itemCount: itensUnicos.length, // Usa a lista sem repetições
                     itemBuilder: (context, index) {
-                      final item = _carrinho.itens[index];
+                      final item = itensUnicos[index];
+                      
+                      final quantidade = _carrinho.itens.where((i) => i == item).length;
+                      
+                      final subtotalItem = item.preco * quantidade;
+
                       return Card(
                         color: const Color(0xFF1E1E1E),
                         margin: const EdgeInsets.symmetric(
@@ -44,47 +50,72 @@ class _CarrinhoTelaState extends State<CarrinhoTela> {
                           vertical: 5,
                         ),
                         child: ListTile(
-                          // O SEGREDO ESTÁ AQUI: errorBuilder garante que o item não suma se a imagem falhar!
                           leading: Image.network(
                             item.imagemUrl,
                             width: 50,
                             fit: BoxFit.contain,
                             errorBuilder: (context, error, stackTrace) =>
                                 const Icon(
-                                  Icons.music_note,
-                                  size: 40,
-                                  color: Color(0xFFE5A93C),
-                                ),
+                              Icons.music_note,
+                              size: 40,
+                              color: Color(0xFFE5A93C),
+                            ),
                           ),
                           title: Text(
                             item.nome,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(color: Colors.white),
                           ),
                           subtitle: Text(
-                            "R\$ ${item.preco.toStringAsFixed(2)}",
+                            "R\$ ${subtotalItem.toStringAsFixed(2)}",
                             style: const TextStyle(
                               color: Color(0xFFE5A93C),
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          trailing: IconButton(
-                            icon: const Icon(
-                              Icons.delete_outline,
-                              color: Colors.red,
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                _carrinho.remover(item);
-                              });
-                            },
+
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.remove_circle_outline,
+                                  color: Colors.redAccent,
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    _carrinho.remover(item);
+                                  });
+                                },
+                              ),
+                              Text(
+                                "$quantidade",
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.add_circle_outline,
+                                  color: Color(0xFFE5A93C),
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    _carrinho.adicionar(item);
+                                  });
+                                },
+                              ),
+                            ],
                           ),
                         ),
                       );
                     },
                   ),
                 ),
-                // Rodapé com Total e Botão de Finalizar
+                
                 Container(
                   padding: const EdgeInsets.all(20),
                   decoration: const BoxDecoration(
@@ -103,6 +134,7 @@ class _CarrinhoTelaState extends State<CarrinhoTela> {
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
+                              color: Colors.white,
                             ),
                           ),
                           Text(
@@ -125,7 +157,6 @@ class _CarrinhoTelaState extends State<CarrinhoTela> {
                             minimumSize: const Size(double.infinity, 50),
                           ),
                           onPressed: () {
-                            // Agora vai para a tela de Pagamento
                             Navigator.push(
                               context,
                               MaterialPageRoute(

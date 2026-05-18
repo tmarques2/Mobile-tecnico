@@ -5,6 +5,7 @@ class InstrumentoCard extends StatelessWidget {
   final Instrumento instrumento;
   final bool favoritado;
   final VoidCallback onFavoritoPressed;
+  final VoidCallback onAdicionarPressed;
   final VoidCallback onTap;
 
   const InstrumentoCard({
@@ -12,6 +13,7 @@ class InstrumentoCard extends StatelessWidget {
     required this.instrumento,
     required this.favoritado,
     required this.onFavoritoPressed,
+    required this.onAdicionarPressed,
     required this.onTap,
   }) : super(key: key);
 
@@ -29,32 +31,33 @@ class InstrumentoCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Stack(
-                children: [
-                  Center(
-                    child: Image.network(
-                      instrumento.imagemUrl,
-                      height: 120,
-                      fit: BoxFit.contain,
-                      errorBuilder: (_, __, ___) => const Icon(
-                        Icons.music_note,
-                        size: 80,
-                        color: Colors.grey,
+              Expanded(
+                child: Stack(
+                  children: [
+                    Center(
+                      child: Image.network(
+                        instrumento.imagemUrl,
+                        fit: BoxFit.contain,
+                        errorBuilder: (_, __, ___) => const Icon(
+                          Icons.music_note,
+                          size: 80,
+                          color: Colors.grey,
+                        ),
                       ),
                     ),
-                  ),
-                  Positioned(
-                    top: 0,
-                    right: 0,
-                    child: IconButton(
-                      icon: Icon(
-                        favoritado ? Icons.favorite : Icons.favorite_border,
-                        color: Colors.red,
+                    Positioned(
+                      top: 0,
+                      right: 0,
+                      child: IconButton(
+                        icon: Icon(
+                          favoritado ? Icons.favorite : Icons.favorite_border,
+                          color: Colors.red,
+                        ),
+                        onPressed: onFavoritoPressed,
                       ),
-                      onPressed: onFavoritoPressed,
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               const SizedBox(height: 8),
               Text(
@@ -67,7 +70,7 @@ class InstrumentoCard extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-              const Spacer(),
+              const SizedBox(height: 4), // Trocado Spacer por SizedBox para não conflitar com o Expanded
               Text(
                 "R\$ ${precoPix.toStringAsFixed(2)}",
                 style: const TextStyle(
@@ -85,12 +88,12 @@ class InstrumentoCard extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF2C6B3F), // Verde Krunner
+                    backgroundColor: const Color(0xFF2C6B3F),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(4),
                     ),
                   ),
-                  onPressed: onTap,
+                  onPressed: onAdicionarPressed,
                   child: const Text(
                     "Adicionar",
                     style: TextStyle(

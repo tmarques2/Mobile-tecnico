@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import '../components/instrumento_card.dart';
 import '../models/instrumento_model.dart';
 import '../services/api_service.dart';
-import '../services/favoritos_service.dart'; // <-- 1. Import do Serviço de Favoritos
+import '../services/carrinho_service.dart';
+import '../services/favoritos_service.dart';
 import 'detalhes_tela.dart';
-import 'carrinho_tela.dart'; // <-- 2. Imports para a navegação da AppBar
+import 'carrinho_tela.dart';
 import 'favoritos_tela.dart';
-import 'home_tela.dart'; // <-- 3. Import para usar o BuscaInstrumentoDelegate (Lupa)
+import 'home_tela.dart';
 
 class CatalogoTela extends StatefulWidget {
   final String categoria;
@@ -39,9 +40,6 @@ class _CatalogoTelaState extends State<CatalogoTela> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // ==========================================
-      // NOVA APPBAR: IGUAL A DA TELA INICIAL (HOME)
-      // ==========================================
       appBar: AppBar(
         backgroundColor: const Color(0xFF121212),
         elevation: 0,
@@ -178,7 +176,7 @@ class _CatalogoTelaState extends State<CatalogoTela> {
                   padding: const EdgeInsets.all(10),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    childAspectRatio: 0.65,
+                    childAspectRatio: 0.55,
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10,
                   ),
@@ -186,15 +184,12 @@ class _CatalogoTelaState extends State<CatalogoTela> {
                   itemBuilder: (context, index) {
                     final item = produtosFiltrados[index];
 
-                    // ==========================================
-                    // CORREÇÃO DO FAVORITO
-                    // ==========================================
                     // Verifica no Singleton se o item é favorito
                     bool isFav = FavoritosService().isFavorito(item);
 
                     return InstrumentoCard(
                       instrumento: item,
-                      favoritado: isFav, // Agora recebe a variável real
+                      favoritado: isFav, // recebe a variável real
                       onFavoritoPressed: () {
                         // Quando clica, altera no serviço e atualiza a tela
                         setState(() {
@@ -218,6 +213,17 @@ class _CatalogoTelaState extends State<CatalogoTela> {
                           context,
                           MaterialPageRoute(
                             builder: (_) => DetalhesTela(instrumento: item),
+                          ),
+                        );
+                      },
+                      onAdicionarPressed: () {
+                        CarrinhoService().adicionar(item);
+
+                        ScaffoldMessenger.of(context).clearSnackBars();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text("Adicionado ao carrinho!"),
+                            duration: Duration(seconds: 1),
                           ),
                         );
                       },

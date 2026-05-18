@@ -6,7 +6,7 @@ import '../services/api_service.dart';
 import 'catalogo_tela.dart';
 import 'carrinho_tela.dart';
 import 'detalhes_tela.dart';
-import 'favoritos_tela.dart'; // <--- 1. IMPORTANTE: Importamos a tela de favoritos aqui!
+import 'favoritos_tela.dart';
 
 class HomeTela extends StatelessWidget {
   const HomeTela({Key? key}) : super(key: key);
@@ -29,7 +29,7 @@ class HomeTela extends StatelessWidget {
           ),
         ),
         actions: [
-          // 1. ÍCONE DE LUPA (PESQUISA REAL)
+          // ÍCONE DE LUPA 
           IconButton(
             icon: const Icon(Icons.search, color: Colors.white),
             onPressed: () {
@@ -41,7 +41,7 @@ class HomeTela extends StatelessWidget {
             },
           ),
 
-          // 2. NOVO: ÍCONE DE FAVORITOS (NAVEGAÇÃO)
+          // ÍCONE DE FAVORITOS
           IconButton(
             icon: const Icon(Icons.favorite_border, color: Colors.white),
             onPressed: () {
@@ -52,7 +52,7 @@ class HomeTela extends StatelessWidget {
             },
           ),
 
-          // 3. ÍCONE DE CARRINHO (NAVEGAÇÃO)
+          // ÍCONE DE CARRINHO 
           IconButton(
             icon: const Icon(Icons.shopping_cart_outlined, color: Colors.white),
             onPressed: () {
@@ -69,10 +69,7 @@ class HomeTela extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 20),
-
-            // ==========================================
-            // BANNER DE BOAS-VINDAS AMARELO
-            // ==========================================
+            // BANNER DE BOAS-VINDAS
             Container(
               width: double.infinity,
               margin: const EdgeInsets.symmetric(horizontal: 16),
@@ -94,7 +91,7 @@ class HomeTela extends StatelessWidget {
                   Text(
                     "Bem-vindo à Krunner!",
                     style: TextStyle(
-                      color: Colors.black, // Texto preto para dar contraste
+                      color: Colors.black,
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
@@ -178,9 +175,7 @@ class HomeTela extends StatelessWidget {
   }
 }
 
-// =========================================================================
-// CLASSE DE PESQUISA (DELEGATE) - Executa o filtro de produtos por nome
-// =========================================================================
+
 class BuscaInstrumentoDelegate extends SearchDelegate {
   final ApiService _apiService = ApiService();
 
@@ -188,7 +183,7 @@ class BuscaInstrumentoDelegate extends SearchDelegate {
   @override
   String get searchFieldLabel => 'Buscar por nome...';
 
-  // Personaliza as cores da barra de pesquisa para o padrão Krunner
+  // Personaliza as cores da barra de pesquisa 
   @override
   ThemeData appBarTheme(BuildContext context) {
     final ThemeData theme = Theme.of(context);
@@ -290,6 +285,10 @@ class BuscaInstrumentoDelegate extends SearchDelegate {
                 instrumento: item,
                 favoritado: false,
                 onFavoritoPressed: () {},
+                onAdicionarPressed: () {
+                  // Lógica para adicionar o item da pesquisa ao carrinho
+                  print('Adicionado ao carrinho pela pesquisa!');
+                },
                 onTap: () {
                   // Clicar no resultado também leva para os Detalhes
                   Navigator.push(

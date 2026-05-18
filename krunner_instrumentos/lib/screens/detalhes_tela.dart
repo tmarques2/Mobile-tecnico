@@ -16,11 +16,11 @@ class DetalhesTela extends StatefulWidget {
 class _DetalhesTelaState extends State<DetalhesTela> {
   @override
   Widget build(BuildContext context) {
-    // Como agora é StatefulWidget, acessamos o instrumento usando "widget.instrumento"
-    double precoAVista = widget.instrumento.preco * 0.9;
-
     // Verifica no Singleton se este item já é um favorito
     bool isFav = FavoritosService().isFavorito(widget.instrumento);
+
+    // Calcula o valor de cada parcela dividindo o preço real por 4
+    double valorParcela = widget.instrumento.preco / 4;
 
     return Scaffold(
       appBar: AppBar(
@@ -84,21 +84,17 @@ class _DetalhesTelaState extends State<DetalhesTela> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "R\$ ${precoAVista.toStringAsFixed(2)} Pix / Boleto",
+                    "R\$ ${widget.instrumento.preco.toStringAsFixed(2).replaceAll('.', ',')}",
                     style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                       color: Color(0xFFE5A93C),
                     ),
                   ),
-                  const Text(
-                    "com 10% de desconto",
-                    style: TextStyle(color: Colors.grey, fontSize: 13),
-                  ),
                   const SizedBox(height: 8),
                   Text(
-                    "ou R\$ ${widget.instrumento.preco.toStringAsFixed(2)} em até 4x no cartão",
-                    style: const TextStyle(color: Colors.white70),
+                    "ou em até 4x de R\$ ${valorParcela.toStringAsFixed(2).replaceAll('.', ',')} sem juros no cartão",
+                    style: const TextStyle(color: Colors.white70, fontSize: 14),
                   ),
                 ],
               ),
@@ -111,7 +107,7 @@ class _DetalhesTelaState extends State<DetalhesTela> {
               height: 50,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF2C6B3F), // Verde Sucesso
+                  backgroundColor: const Color(0xFF2C6B3F), 
                 ),
                 onPressed: () {
                   // 1. Adiciona o produto na classe Singleton do Carrinho

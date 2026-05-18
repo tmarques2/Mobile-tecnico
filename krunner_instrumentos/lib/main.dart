@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'screens/base_tela.dart';
+import 'screens/splash_tela.dart'; // <--- IMPORTA A SUA NOVA TELA DE SPLASH
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MusicVibeApp());
 }
 
@@ -14,19 +15,18 @@ class MusicVibeApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Krunner Instrumentos',
       theme: ThemeData(
-        brightness: Brightness.dark, // Define o tema base como escuro
-        fontFamily: 'Montserrat', // Fonte GLobal
-        scaffoldBackgroundColor: const Color(
-          0xFF121212,
-        ), // Fundo Grafite Escuro da Krunner
-        primaryColor: const Color(0xFFE5A93C), // Amarelo Krunner
+        brightness: Brightness.dark,
+        fontFamily: 'Montserrat',
+        scaffoldBackgroundColor: const Color(0xFF121212),
+        primaryColor: const Color(0xFFE5A93C),
         colorScheme: const ColorScheme.dark(
           primary: Color(0xFFE5A93C),
-          secondary: Color(0xFF2C6B3F), // Verde do botão comprar
-          surface: Color(0xFF1E1E1E), // Fundo dos cards
+          secondary: Color(0xFF2C6B3F),
+          surface: Color(0xFF1E1E1E),
         ),
       ),
-      home: const BaseTela(),
+      // Definimos a tela de Splash externa como a primeira tela a ser aberta
+      home: const KrunnerSplashScreen(),
     );
   }
 }

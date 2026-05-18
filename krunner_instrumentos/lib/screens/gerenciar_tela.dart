@@ -3,7 +3,6 @@ import '../models/instrumento_model.dart';
 import '../services/api_service.dart';
 import 'formulario_instrumento_tela.dart';
 
-// Novos imports necessários para a AppBar padrão funcionar
 import 'home_tela.dart';
 import 'favoritos_tela.dart';
 import 'carrinho_tela.dart';
@@ -25,9 +24,6 @@ class _GerenciarTelaState extends State<GerenciarTela> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // ==========================================
-      // NOVA APPBAR: LOGO + ADICIONAR + PADRÕES
-      // ==========================================
       appBar: AppBar(
         backgroundColor: const Color(0xFF121212),
         elevation: 0,
@@ -43,7 +39,6 @@ class _GerenciarTelaState extends State<GerenciarTela> {
           ),
         ),
         actions: [
-          // 1. ÍCONE DE ADICIONAR (Específico desta tela)
           IconButton(
             icon: const Icon(
               Icons.add_circle_outline,
@@ -51,7 +46,7 @@ class _GerenciarTelaState extends State<GerenciarTela> {
             ),
             tooltip: "Adicionar Instrumento",
             onPressed: () async {
-              // Vai para o formulário sem passar objeto (Modo: Adicionar)
+              // Vai para o formulário sem passar objeto
               final mudou = await Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -61,7 +56,7 @@ class _GerenciarTelaState extends State<GerenciarTela> {
               if (mudou == true) _atualizarLista();
             },
           ),
-          // 2. ÍCONE DE LUPA (PESQUISA)
+
           IconButton(
             icon: const Icon(Icons.search, color: Colors.white),
             onPressed: () {
@@ -71,7 +66,7 @@ class _GerenciarTelaState extends State<GerenciarTela> {
               );
             },
           ),
-          // 3. ÍCONE DE FAVORITOS
+
           IconButton(
             icon: const Icon(Icons.favorite_border, color: Colors.white),
             onPressed: () {
@@ -81,7 +76,7 @@ class _GerenciarTelaState extends State<GerenciarTela> {
               );
             },
           ),
-          // 4. ÍCONE DE CARRINHO
+
           IconButton(
             icon: const Icon(Icons.shopping_cart_outlined, color: Colors.white),
             onPressed: () {

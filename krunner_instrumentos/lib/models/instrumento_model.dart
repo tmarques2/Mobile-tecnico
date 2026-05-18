@@ -1,42 +1,30 @@
-// 1. CLASSE MÃE (Superclasse)
-abstract class Produto {
+class Instrumento {
   final String id;
   final String nome;
   final double preco;
   final String imagemUrl;
+  final String categoria; // Mantido pois seu catalogo_tela.dart utiliza
 
-  Produto({
+  Instrumento({
     required this.id,
     required this.nome,
     required this.preco,
     required this.imagemUrl,
-  });
-}
-
-// 2. SUBCLASSE (Filha que herda de Produto) - CUMPRE O CRITÉRIO DO PDF!
-class Instrumento extends Produto {
-  final String categoria;
-
-  Instrumento({
-    required String id,
-    required String nome,
-    required double preco,
-    required String imagemUrl,
     required this.categoria,
-  }) : super(id: id, nome: nome, preco: preco, imagemUrl: imagemUrl); // Passa os dados pra classe mãe
+  });
 
-  // Transforma de JSON para Objeto
+  // Converte de JSON (usado na API e no SharedPreferences)
   factory Instrumento.fromJson(Map<String, dynamic> json) {
     return Instrumento(
-      id: json['id'] ?? '',
+      id: json['id'] ?? json['_id'] ?? '',
       nome: json['nome'] ?? '',
-      preco: (json['preco'] ?? 0).toDouble(),
-      imagemUrl: json['imagemUrl'] ?? '',
+      preco: (json['preco'] as num?)?.toDouble() ?? 0.0,
+      imagemUrl: json['imagemUrl'] ?? json['imagem_url'] ?? '',
       categoria: json['categoria'] ?? '',
     );
   }
 
-  // Transforma de Objeto para JSON
+  // Converte para JSON (usado para salvar no SharedPreferences)
   Map<String, dynamic> toJson() {
     return {
       'id': id,

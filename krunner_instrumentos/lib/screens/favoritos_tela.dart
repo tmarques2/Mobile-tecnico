@@ -42,7 +42,11 @@ class _FavoritosTelaState extends State<FavoritosTela> {
                       _favoritos.alternarFavorito(item);
                     });
                   },
-                  onTap: () {}, // Opcional: navegar para detalhes
+                  onAdicionarPressed: () {
+                    // Lógica para adicionar o item favorito ao carrinho
+                    print('Adicionado ao carrinho pelos favoritos!');
+                  },
+                  onTap: () {},
                 );
               },
             ),
