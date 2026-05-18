@@ -18,10 +18,10 @@ class _KrunnerSplashScreenState extends State<KrunnerSplashScreen> {
   }
 
   Future<void> _inicializarApp() async {
-    // 1. Força a tela de Splash a segurar por pelo menos 2 segundos
+    // Força a tela de Splash a segurar por pelo menos 2 segundos
     final tempoMinimoSplash = Future.delayed(const Duration(seconds: 2));
 
-    // 2. Carrega os dados locais salvos no dispositivo em paralelo
+    // Carrega os dados locais salvos no dispositivo em paralelo
     final carregarDadosLocais = Future(() async {
       try {
         await CarrinhoService().carregarCarrinho();
@@ -31,10 +31,10 @@ class _KrunnerSplashScreenState extends State<KrunnerSplashScreen> {
       }
     });
 
-    // 3. Aguarda ambos os processos terminarem
+    // Aguarda ambos os processos terminarem
     await Future.wait([tempoMinimoSplash, carregarDadosLocais]);
 
-    // 4. Vai para a BaseTela limpando a Splash da memória
+    // Vai para a BaseTela limpando a Splash da memória
     if (mounted) {
       Navigator.pushReplacement(
         context,
@@ -49,7 +49,6 @@ class _KrunnerSplashScreenState extends State<KrunnerSplashScreen> {
       backgroundColor: const Color(0xFF121212), // Fundo Grafite Escuro
       body: Stack(
         children: [
-          // Conteúdo Central (Identidade Visual Krunner)
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -78,7 +77,8 @@ class _KrunnerSplashScreenState extends State<KrunnerSplashScreen> {
               ],
             ),
           ),
-          // Indicador de Carregamento sutil embaixo
+          
+          // Indicador de Carregamento
           Positioned(
             bottom: 60,
             left: 0,

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'screens/splash_tela.dart'; // <--- IMPORTA A SUA NOVA TELA DE SPLASH
+import 'screens/splash_tela.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MusicVibeApp());
+  runApp(const KrunnerInstrumentos());
 }
 
-class MusicVibeApp extends StatelessWidget {
-  const MusicVibeApp({Key? key}) : super(key: key);
+class KrunnerInstrumentos extends StatelessWidget {
+  const KrunnerInstrumentos({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,6 @@ class MusicVibeApp extends StatelessWidget {
           surface: Color(0xFF1E1E1E),
         ),
       ),
-      // Definimos a tela de Splash externa como a primeira tela a ser aberta
       home: const KrunnerSplashScreen(),
     );
   }

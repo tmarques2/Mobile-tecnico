@@ -35,13 +35,16 @@ class _CarrinhoTelaState extends State<CarrinhoTela> {
               children: [
                 Expanded(
                   child: ListView.builder(
-                    itemCount: itensUnicos.length, // Usa a lista sem repetições
+                    itemCount: _carrinho
+                        .itens
+                        .length, // Agora a lista já é naturalmente única!
                     itemBuilder: (context, index) {
-                      final item = itensUnicos[index];
-                      
-                      final quantidade = _carrinho.itens.where((i) => i == item).length;
-                      
-                      final subtotalItem = item.preco * quantidade;
+                      // Obtém o item do carrinho (que já contém o instrumento e a quantidade)
+                      final itemCarrinho = _carrinho.itens[index];
+                      final instrumento = itemCarrinho.instrumento;
+                      final quantidade = itemCarrinho.quantidade;
+
+                      final subtotalItem = instrumento.preco * quantidade;
 
                       return Card(
                         color: const Color(0xFF1E1E1E),
@@ -51,18 +54,18 @@ class _CarrinhoTelaState extends State<CarrinhoTela> {
                         ),
                         child: ListTile(
                           leading: Image.network(
-                            item.imagemUrl,
+                            instrumento.imagemUrl,
                             width: 50,
                             fit: BoxFit.contain,
                             errorBuilder: (context, error, stackTrace) =>
                                 const Icon(
-                              Icons.music_note,
-                              size: 40,
-                              color: Color(0xFFE5A93C),
-                            ),
+                                  Icons.music_note,
+                                  size: 40,
+                                  color: Color(0xFFE5A93C),
+                                ),
                           ),
                           title: Text(
-                            item.nome,
+                            instrumento.nome,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(color: Colors.white),
@@ -74,10 +77,10 @@ class _CarrinhoTelaState extends State<CarrinhoTela> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-
                           trailing: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
+                              // Botão de diminuir quantidade
                               IconButton(
                                 icon: const Icon(
                                   Icons.remove_circle_outline,
@@ -85,10 +88,11 @@ class _CarrinhoTelaState extends State<CarrinhoTela> {
                                 ),
                                 onPressed: () {
                                   setState(() {
-                                    _carrinho.remover(item);
+                                    _carrinho.remover(instrumento);
                                   });
                                 },
                               ),
+                              // Texto da quantidade
                               Text(
                                 "$quantidade",
                                 style: const TextStyle(
@@ -97,6 +101,7 @@ class _CarrinhoTelaState extends State<CarrinhoTela> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
+                              // Botão de aumentar quantidade
                               IconButton(
                                 icon: const Icon(
                                   Icons.add_circle_outline,
@@ -104,7 +109,22 @@ class _CarrinhoTelaState extends State<CarrinhoTela> {
                                 ),
                                 onPressed: () {
                                   setState(() {
-                                    _carrinho.adicionar(item);
+                                    _carrinho.adicionar(instrumento);
+                                  });
+                                },
+                              ),
+                              const SizedBox(
+                                width: 2,
+                              ),
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.delete_outline,
+                                  color: Colors
+                                      .grey, // Cor neutra para não brigar com o visual, mas você pode usar vermelho se preferir
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    _carrinho.deletar(instrumento);
                                   });
                                 },
                               ),
@@ -115,7 +135,7 @@ class _CarrinhoTelaState extends State<CarrinhoTela> {
                     },
                   ),
                 ),
-                
+
                 Container(
                   padding: const EdgeInsets.all(20),
                   decoration: const BoxDecoration(
